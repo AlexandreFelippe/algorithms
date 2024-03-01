@@ -4,17 +4,16 @@ def study_schedule(permanence_period, target_time):
 
     max_students = 0
 
-    for period in permanence_period:
+    for start_time, end_time in permanence_period:
         if (
-            len(period) != 2
-            or not all(isinstance(val, (int, float)) for val in period)
-            or period[0] < 0
-            or period[1] < 0
+            not isinstance(start_time, (int, float))
+            or not isinstance(end_time, (int, float))
+            or start_time < 0
+            or end_time < 0
         ):
             return None
 
-        start_time, end_time = period
-        if target_time >= start_time and target_time <= end_time:
+        if start_time <= target_time <= end_time:
             max_students += 1
 
     return max_students
