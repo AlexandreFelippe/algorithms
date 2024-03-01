@@ -10,27 +10,24 @@ def merge_sort(s):
         merge(s, left_half, right_half)
 
 
-def merge(s, left_half, right_half):
-    i = j = k = 0
+def merge(merged, left_half, right_half):
+    left_cursor, right_cursor = 0, 0
 
-    while i < len(left_half) and j < len(right_half):
-        if left_half[i] < right_half[j]:
-            s[k] = left_half[i]
-            i += 1
+    while left_cursor < len(left_half) and right_cursor < len(right_half):
+        if left_half[left_cursor] <= right_half[right_cursor]:
+            merged[left_cursor + right_cursor] = left_half[left_cursor]
+            left_cursor += 1
         else:
-            s[k] = right_half[j]
-            j += 1
-        k += 1
+            merged[left_cursor + right_cursor] = right_half[right_cursor]
+            right_cursor += 1
 
-    while i < len(left_half):
-        s[k] = left_half[i]
-        i += 1
-        k += 1
+    for left_cursor in range(left_cursor, len(left_half)):
+        merged[left_cursor + right_cursor] = left_half[left_cursor]
 
-    while j < len(right_half):
-        s[k] = right_half[j]
-        j += 1
-        k += 1
+    for right_cursor in range(right_cursor, len(right_half)):
+        merged[left_cursor + right_cursor] = right_half[right_cursor]
+
+    return merged
 
 
 def sort_string(string):
